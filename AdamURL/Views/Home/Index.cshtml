@@ -1,0 +1,19 @@
+﻿@model AdamURL.Models.ShortUrl
+
+@{
+    ViewData["Title"] = "AdamURL";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Paste the full URL in the box (must include http or https prefix!) </p>
+    <form asp-action="Submit">
+        <div class="form-group">
+            <input asp-for="longUrl" class="form-control" />
+            <span asp-validation-for="longUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

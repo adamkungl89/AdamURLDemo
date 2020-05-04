@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Login</h1>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Password? </p>
+    <form asp-action="Login">
+        <input type="text" id="password" name="password" />
+        <input type="submit" value="Login" class="btn btn-primary" />
+    </form>
+    @if (ViewData.ContainsKey("ErrorText"))
+    {
+        <p>@ViewData["ErrorText"]</p>
+    }
+</div>
