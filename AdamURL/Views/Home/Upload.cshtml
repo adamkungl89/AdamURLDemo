@@ -1,0 +1,22 @@
+﻿@model AdamURL.Models.FileUpload
+
+@{
+    ViewData["Title"] = "AdamURL Upload";
+}
+
+<form enctype="multipart/form-data" method="post">
+    <input name="theFile" id="theFile" type="file">
+    <input asp-action="Upload" class="btn btn-primary" type="submit" value="Upload" />
+</form>
+
+@if (ViewData.ContainsKey("Success") && ViewData["Success"].Equals("true"))
+{
+    foreach (string s in Model.listUrls)
+    {
+        @s <br />
+    }
+}
+else
+{
+    <p>There's nothing here yet</p>
+}

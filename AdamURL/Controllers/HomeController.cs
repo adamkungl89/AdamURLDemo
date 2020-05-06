@@ -8,6 +8,7 @@ using AdamURL.Models;
 using AdamURL.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using System.IO;
 
 namespace AdamURL.Controllers
 {
@@ -25,6 +26,43 @@ namespace AdamURL.Controllers
         {
             return View();
         }
+
+        public IActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile theFile)
+        {
+            if (theFile == null)
+            {
+                return View();
+            }
+            FileUpload newFile = new FileUpload();
+            //validation goes here... file extension, size, etc
+
+            using (var reader = new StreamReader(theFile.OpenReadStream()))
+            {
+                while(reader.Peek() >= 0)
+                {
+                    newFile.listUrls.Add(reader.ReadLine());
+                }
+            }
+            bool result = newFile.listUrls.Count > 0;
+            if (!result)
+            {
+                ViewData["Success"] = "Upload didnt work, this is rubbish.";
+                return View("Upload");
+            }
+            foreach (string s in newFile.listUrls)
+            {
+                await Submit(s);
+            }
+            ViewData["Success"] = "true";
+            return View("Upload",newFile);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Submit(string longUrl)
